@@ -55,7 +55,8 @@ def fusion(iter):
 
 def _create_decoder(data, addr, *, bv=None):
     if binaryninja.Settings().get_bool("arch.avnera.disassembly.pseudoOps", bv):
-        return fusion(iter_decode(data, addr))
+        # MOV -> MOVP -> MOVW
+        return fusion(fusion(iter_decode(data, addr)))
     else:
         return iter_decode(data, addr)
 

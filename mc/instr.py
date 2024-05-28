@@ -464,8 +464,7 @@ class MOVP(MovePseudoInstruction):
 
     def lift(self, il, addr):
         super().lift(il, addr)
-        st_operands = tuple(self[1].operands())
-        il.append(il.set_flag('Z', il.compare_equal(1, st_operands[1].lift(il), il.const(1, 0))))
+        self[0].lift(il, addr) # lift side effects of the load
 
 
 class MOV_R0_Reg(InstrHasReg8, MoveInstruction):
@@ -485,7 +484,7 @@ class MOV_Reg_Imm(InstrHasImm, InstrHasReg8, MoveInstruction):
         if isinstance(sister, MOV_Reg_Imm) and self.opcode ^ sister.opcode == 1:
             return MOVW_Reg_Imm(self, sister)
         if isinstance(sister, MOV_MemAbs_Reg) and sister.reg == 'R0':
-            return MOVP(self, sister)
+            return MOVP_MemAbs_Imm(self, sister)
 
     def operands(self):
         yield Reg8Operand(self.reg)
@@ -503,6 +502,37 @@ class MOVW_Reg_Imm(PseudoHasReg16, MovePseudoInstruction):
     def operands(self):
         yield Reg16Operand(self.regs)
         yield ImmOperand(self.imm, width=2)
+
+
+class MOVP_MemAbs_Imm(MOVP):
+    def fuse(self, sister):
+        if isinstance(sister, MOVP_MemAbs_Imm) and abs(self.addr - sister.addr) == 1:
+            return MOVW_MemAbs_Imm(self, sister)
+
+    @property
+    def imm(self):
+        return self[0].imm
+
+    @property
+    def addr(self):
+        return self[1].addr
+
+
+class MOVW_MemAbs_Imm(PseudoHasAbs, MovePseudoInstruction):
+    @property
+    def imm(self):
+        if self[0].addr > self[1].addr:
+            return self[0].imm << 8 | self[1].imm
+        else:
+            return self[1].imm << 8 | self[0].imm
+
+    def operands(self):
+        yield MemAbsOperand(self.addr, width=2)
+        yield ImmOperand(self.imm, width=2)
+
+    def lift(self, il, addr):
+        super().lift(il, addr)
+        self[1][0].lift(il, addr) # lift side effects of the load
 
 
 class MOV_R0_MemReg(InstrHasReg16, MoveInstruction):
