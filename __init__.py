@@ -16,6 +16,7 @@ class Avnera(Architecture):
     endianness = Endianness.LittleEndian
     address_size = 2
     default_int_size = 1
+    opcode_display_length = 6 # enough for a `MOVW [#abs], RbRa` fusion but not for wider ones
 
     regs = {
         'R0': RegisterInfo('R0', 1),
