@@ -128,7 +128,10 @@ class Reg16Operand:
         self._regs = regs
 
     def render(self):
-        return asm(('reg', ''.join(self._regs)))
+        return asm(
+            ('reg',    self._regs[0]),
+            ('reg',    self._regs[1]),
+        )
 
     def lift(self, il):
         return il.reg_split(1, *self._regs)
@@ -234,7 +237,8 @@ class MemRegOperand:
     def render(self):
         return asm(
             ('begmem', '['),
-            ('reg',    ''.join(self._regs)),
+            ('reg',    self._regs[0]),
+            ('reg',    self._regs[1]),
             ('endmem', ']')
         )
 
@@ -253,7 +257,8 @@ class MemIdxOperand:
     def render(self):
         return asm(
             ('begmem', '['),
-            ('reg',    ''.join(self._regs)),
+            ('reg',    self._regs[0]),
+            ('reg',    self._regs[1]),
             ('opsep',  '+'),
             ('int',    f'{self._off}', self._off),
             ('endmem', ']'),
