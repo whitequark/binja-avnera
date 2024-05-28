@@ -15,7 +15,7 @@ Dedicated with 🧡 to [Frederick G. Weiss and his colleagues at Avnera Corporat
 * Opcodes `A0` to `AF`, `B0` to `B7`, `BB`, `BD`, and `BE` are not implemented as their function is not known.
 * Opcodes `C1`, `C3`, `C5`, `C7`, `D1`, `D3`, `D5`, `D7`, `D9`, `DB`, `DD`, `DF`, `F1`, `F3`, `F5`, `F7`, `F9`, `FB`, `FD`, `FF` have known functionality but their decoding is disabled as they aren't present in the available blobs and appear to be invalid opcodes that unintentionally perform a function.
 
-![demonstration of disassembly and decompiled HLIL on a small function implementing a 32-bit multiply](demo.png)
+![demonstration of disassembly and decompiled HLIL on a small function implementing a 32-bit multiply](doc/demo.png)
 
 ## Devices
 
@@ -26,6 +26,10 @@ This plugin supports at least the following devices:
 * AV6202
 
 If you've successfully used the plugin with another device, please add it to the list and send a pull request!
+
+## Cheatsheet
+
+[![a table laying out all of the opcodes in a 16x16 grid](doc/cheatsheet.svg)](doc/cheatsheet.svg)
 
 ## License
 

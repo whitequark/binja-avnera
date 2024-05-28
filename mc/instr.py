@@ -549,13 +549,13 @@ class MOVW_MemAbs_Reg(PseudoHasAbs, PseudoHasReg16, MovePseudoInstruction):
         yield Reg16Operand(self.regs)
 
 
-class MOV_Reg_MemIdx(InstrHasImm, InstrHasReg16, MoveInstruction):
+class MOV_R0_MemIdx(InstrHasImm, InstrHasReg16, MoveInstruction):
     def operands(self):
         yield Reg8Operand('R0')
         yield MemIdxOperand(self.regs, self.imm)
 
 
-class MOV_MemIdx_Reg(InstrHasImm, InstrHasReg16, MoveInstruction):
+class MOV_MemIdx_R0(InstrHasImm, InstrHasReg16, MoveInstruction):
     def operands(self):
         yield MemIdxOperand(self.regs, self.imm)
         yield Reg8Operand('R0')
@@ -912,13 +912,13 @@ Instruction.opcodes.update({
     # 0xd5: MOV_MemReg_R0, # broken in CPU
     0xd6: MOV_MemReg_R0,
     # 0xd7: MOV_MemReg_R0, # broken in CPU
-    0xd8: MOV_MemIdx_Reg,
+    0xd8: MOV_MemIdx_R0,
     # 0xd9: MOV_MemIdx_Reg, # broken in CPU
-    0xda: MOV_MemIdx_Reg,
+    0xda: MOV_MemIdx_R0,
     # 0xdb: MOV_MemIdx_Reg, # broken in CPU
-    0xdc: MOV_MemIdx_Reg,
+    0xdc: MOV_MemIdx_R0,
     # 0xdd: MOV_MemIdx_Reg, # broken in CPU
-    0xde: MOV_MemIdx_Reg,
+    0xde: MOV_MemIdx_R0,
     # 0xdf: MOV_MemIdx_Reg, # broken in CPU
     0xe0: MOV_Reg_Imm,
     0xe1: MOV_Reg_Imm,
@@ -944,12 +944,12 @@ Instruction.opcodes.update({
     # 0xf5: MOV_R0_MemReg, # broken in CPU
     0xf6: MOV_R0_MemReg,
     # 0xf7: MOV_R0_MemReg, # broken in CPU
-    0xf8: MOV_Reg_MemIdx,
+    0xf8: MOV_R0_MemIdx,
     # 0xf9: MOV_Reg_MemIdx, # broken in CPU
-    0xfa: MOV_Reg_MemIdx,
+    0xfa: MOV_R0_MemIdx,
     # 0xfb: MOV_Reg_MemIdx, # broken in CPU
-    0xfc: MOV_Reg_MemIdx,
+    0xfc: MOV_R0_MemIdx,
     # 0xfd: MOV_Reg_MemIdx, # broken in CPU
-    0xfe: MOV_Reg_MemIdx,
+    0xfe: MOV_R0_MemIdx,
     # 0xff: MOV_Reg_MemIdx, # broken in CPU
 })
