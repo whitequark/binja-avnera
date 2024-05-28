@@ -184,7 +184,11 @@ class ImmOperand:
         self._width = width
 
     def render(self):
-        return asm(('int', f'#{self._imm:0{self._width * 2}X}', self._imm))
+        if self._width == 1:
+            return asm(('int',  f'#{self._imm:02X}', self._imm))
+        if self._width == 2:
+            return asm(('addr', f'#{self._imm:04X}', self._imm))
+        assert False
 
     def lift(self, il):
         return il.const(self._width, self._imm)
