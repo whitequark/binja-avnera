@@ -53,9 +53,16 @@ def fusion(iter):
             instr1, addr1 = instr2, addr2
 
 
-def decode(data, addr):
+def _create_decoder(data, addr, *, bv=None):
+    if binaryninja.Settings().get_bool("arch.avnera.disassembly.pseudoOps", bv):
+        return fusion(iter_decode(data, addr))
+    else:
+        return iter_decode(data, addr)
+
+
+def decode(data, addr, *, bv=None):
     try:
-        instr, _ = next(fusion(iter_decode(data, addr)))
+        instr, _ = next(_create_decoder(data, addr, bv=bv))
         return instr
     except StopIteration:
         return None
@@ -67,6 +74,6 @@ def encode(instr, addr):
     return iter_encode([instr], addr)
 
 
-def disassemble(data, addr):
-    for instr, addr in iter_decode(data, addr):
+def disassemble(data, addr, *, bv=None):
+    for instr, addr in _create_decoder(data, addr, bv=bv):
         instr.display(addr)
