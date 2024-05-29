@@ -31,6 +31,10 @@ If you've successfully used the plugin with another device, please add it to the
 
 [![a table laying out all of the opcodes in a 16x16 grid](doc/cheatsheet.svg)](doc/cheatsheet.svg)
 
+## Acknowledgements
+
+This plugin is heavily based on the excellent [AV7300 research](https://github.com/Prehistoricman/AV7300) by [@Prehistoricman](https://github.com/Prehistoricman).
+
 ## License
 
 [0-clause BSD](LICENSE-0BSD.txt)
