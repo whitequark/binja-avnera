@@ -106,10 +106,6 @@ class AvneraCCallingConvention(CallingConvention):
     high_int_return_reg = 'R1'
 
 
-arch = Avnera.register()
-arch.register_calling_convention(default_cc := AvneraCCallingConvention(arch, 'default'))
-arch.set_default_calling_convention(default_cc)
-
 settings = Settings()
 settings.register_setting('arch.avnera.disassembly.pseudoOps', json.dumps({
     'title': 'Avnera Disassembly Pseudo-Op',
@@ -117,3 +113,8 @@ settings.register_setting('arch.avnera.disassembly.pseudoOps', json.dumps({
     'type': 'boolean',
     'default': True
 }))
+
+
+arch = Avnera.register()
+arch.register_calling_convention(default_cc := AvneraCCallingConvention(arch, 'default'))
+arch.set_default_calling_convention(default_cc)
