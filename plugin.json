@@ -6,7 +6,7 @@
   "description": "A plugin providing the Avnera AV6xxx/AV7xxx architecture.\n\nWith warm regards to Frederick G. Weiss and colleagues.",
   "version": "0.1",
   "author": "Catherine",
-  "minimumbinaryninjaversion": 555,
+  "minimumbinaryninjaversion": 5428,
   "platforms": ["Darwin", "Linux", "Windows"],
   "license": {
     "name": "BSD-0-clause",

@@ -106,12 +106,12 @@ class AvneraCCallingConvention(CallingConvention):
     high_int_return_reg = 'R1'
 
 
-Avnera.register()
-arch = Architecture['avnera'] # waiting on Vector35/binaryninja-api#5457
-arch.register_calling_convention(AvneraCCallingConvention(arch, 'default'))
+arch = Avnera.register()
+arch.register_calling_convention(default_cc := AvneraCCallingConvention(arch, 'default'))
+arch.set_default_calling_convention(default_cc)
 
 settings = Settings()
-settings.register_setting("arch.avnera.disassembly.pseudoOps", json.dumps({
+settings.register_setting('arch.avnera.disassembly.pseudoOps', json.dumps({
     'title': 'Avnera Disassembly Pseudo-Op',
     'description': 'Enable use of pseudo-op instructions (MOVW, MOVP, LSL) in Avnera disassembly. Be aware that disabling this setting will impair lifting.',
     'type': 'boolean',
